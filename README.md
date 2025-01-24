@@ -1,4 +1,5 @@
-PCInventario es un software elaborado por Eduardo Rizo
+# PCInventario
+Software elaborado por Eduardo Rizo <erizo@uv.mx>
 Puede usarse libremente bajo los términos y condiciones
 de la licencia GPL versión 3.
 
