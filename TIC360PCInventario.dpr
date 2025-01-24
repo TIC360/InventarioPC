@@ -845,7 +845,7 @@ begin
       GetDisplayAdapters;
       GetInstalledCameras;
       GetAudioDevices;
-      GetComponentTemperatures;
+      //GetComponentTemperatures;
       GetOSInfo;
       GetWindowsUpdatePolicies;
       //GetInstalledSoftware;
