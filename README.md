@@ -16,11 +16,11 @@ Area=CASA
 También hay un archivo llamado config.ini, en este archivo se define el tipo de
 información que se desea recolectar, se activa con SI y se ignora con NO. 
 
-#[Procedures]
-##GetComputerName=SI
+## [Procedures]
+### GetComputerName=SI
 Nombre de la computadora
 
-###GetCurrentDateTime=SI
+### GetCurrentDateTime=SI
 Fecha y hora
 
 GetMotherboardDetails=SI
