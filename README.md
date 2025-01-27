@@ -17,9 +17,13 @@ información que se desea recolectar, se activa con SI y se ignora con NO.
 
 [Procedures]
 GetComputerName=SI
+
 GetCurrentDateTime=SI
+
 GetMotherboardDetails=SI
+
 GetBIOSInfo=SI
+
 GetDiskDriveInfo=SI
 GetMemoryInfo=SI
 GetMemoryUsage=SI
