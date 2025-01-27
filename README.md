@@ -47,7 +47,7 @@ Porcentaje de uso
 ### GetNetworkAdapters=SI | NO
 Nombre, dirección MAC, fabricante, estado
 
-### GetNetworkConfiguration=SI | NO
+### GetNetworkConfiguration=NO | SI
 Descripción, dirección MAC, dirección IP, puerta de enlace, servidor DNS, DHCP habilitado
 
 ### GetDisplayAdapters=SI | NO
@@ -65,10 +65,10 @@ Descripcion, versión, número de compilación, arquitectura
 ### GetWindowsUpdatePolicies=SI | NO
 Clave de actualización, fecha de actualización
 
-### GetInstalledSoftware=SI | NO
+### GetInstalledSoftware=NO | SI
 Nombre, versión
 
-### GetLocalUsersAndGroups=SI | NO
+### GetLocalUsersAndGroups=NO | SI
 Nombre, estado, desactivado (si o no)
 
 ### GetWindowsLicenseInfo=SI | NO
