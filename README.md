@@ -14,65 +14,65 @@ Ejemplo del contenido del archivo config.txt
 Area=CASA
 
 También hay un archivo llamado config.ini, en este archivo se define el tipo de
-información que se desea recolectar, se activa con SI y se ignora con NO. 
+información que se desea recolectar, se activa con SI y se ignora con NO.
 
 ## [Procedures]
-### GetComputerName=SI
+### GetComputerName=SI | NO
 Nombre de la computadora.
 
-### GetCurrentDateTime=SI
+### GetCurrentDateTime=SI | NO
 Fecha y hora.
 
-### GetMotherboardDetails=SI
+### GetMotherboardDetails=SI | NO
 Fabricante, modelo, número de serie, versión.
 
-### GetBIOSInfo=SI
+### GetBIOSInfo=SI | NO
 Fabricante, versión, número de serie.
 
-### GetDiskDriveInfo=SI
+### GetDiskDriveInfo=SI | NO
 Fabricante, número de serie, modelo, tamaño en GB, tipo de medio (físico o virtual), espacio libre en GB, porcentaje usado.
 
-### GetMemoryInfo=SI
+### GetMemoryInfo=SI | NO
 Fabricante, número de parte, número de serie, capacidad en GB
 
-### GetMemoryUsage=SI
+### GetMemoryUsage=SI | NO
 Memoria total, memoria libre, memoria usada, porcentaje de memoria usada
 
-### GetCPUInfo=SI
+### GetCPUInfo=SI | NO
 Nombre, fabricante, Id del procesador, velocidad máxima, núcleos, hilos
 
-### GetCPUUsage=SI
+### GetCPUUsage=SI | NO
 Porcentaje de uso
 
-### GetNetworkAdapters=SI
+### GetNetworkAdapters=SI | NO
 Nombre, dirección MAC, fabricante, estado
 
-### GetNetworkConfiguration=SI
+### GetNetworkConfiguration=SI | NO
 Descripción, dirección MAC, dirección IP, puerta de enlace, servidor DNS, DHCP habilitado
 
-### GetDisplayAdapters=SI
+### GetDisplayAdapters=SI | NO
 Nombre, cantidad de memoria RAM, versión del driver.
 
-### GetInstalledCameras=SI
+### GetInstalledCameras=SI | NO
 Nombre, estatus, ID del dispositivo
 
-### GetAudioDevices=SI
+### GetAudioDevices=SI | NO
 Nombre, estatus, ID del dispositivo
 
-### GetOSInfo=SI
+### GetOSInfo=SI | NO
 Descripcion, versión, número de compilación, arquitectura
 
-### GetWindowsUpdatePolicies=SI
+### GetWindowsUpdatePolicies=SI | NO
 Clave de actualización, fecha de actualización
 
-### GetInstalledSoftware=SI
+### GetInstalledSoftware=SI | NO
 Nombre, versión
 
-### GetLocalUsersAndGroups=SI
+### GetLocalUsersAndGroups=SI | NO
 Nombre, estado, desactivado (si o no)
 
-### GetWindowsLicenseInfo=SI
+### GetWindowsLicenseInfo=SI | NO
 Nombre, subtítulo
 
-### GetSecurityStatus=SI
+### GetSecurityStatus=SI | NO
 Nombre del antivirus, estado del firewall
