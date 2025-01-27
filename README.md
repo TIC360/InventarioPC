@@ -1,7 +1,7 @@
 # PCInventario
 Software que recolecta información del hardware y software de computadoras con sistema operativo Microsoft Windows
 
-El código fuente se encuentra en el archivo TIC360PCInventario.dpr
+El código fuente se encuentra en el archivo TIC360PCInventario.dpr, puedes compilarlo con Delphi 12 Community Edition disponible en https://www.embarcadero.com/products/delphi/starter
 
 Modo de uso: Editar el archivo config.txt y cambia el valor de Area
 de acuerdo a tus preferencias. Al ejecutar el programa se creará una carpeta
