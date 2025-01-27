@@ -1,6 +1,8 @@
 # PCInventario
 Software que recolecta información del hardware y software de computadoras con sistema operativo Microsoft Windows
 
+El código fuente se encuentra en el archivo TIC360PCInventario.dpr
+
 Modo de uso: Editar el archivo config.txt y cambia el valor de Area
 de acuerdo a tus preferencias. Al ejecutar el programa se creará una carpeta
 con nombre igual que el valor de Area y pondrá dentro un archivo con
