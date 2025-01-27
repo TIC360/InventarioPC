@@ -1,2 +1,2 @@
 [Settings]
-Area=CASA
+Area=AE1

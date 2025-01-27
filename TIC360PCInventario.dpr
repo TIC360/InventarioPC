@@ -25,7 +25,8 @@ uses
   ActiveX,
   DateUtils,
   Windows,
-  System.StrUtils;
+  System.StrUtils,
+  Classes;
 
 var
   OutputFile: TIniFile;
@@ -39,8 +40,9 @@ var
   ComputerNameBuffer: array[0..MAX_COMPUTERNAME_LENGTH] of Char;
   Size: DWORD;
   OutputFilePath: string;
+
 begin
-  // Leer el archivo config.ini
+  // Leer el archivo config.txt
   if not FileExists(ExtractFilePath(ParamStr(0)) + 'config.txt') then
   begin
     WriteLn('Error: No se encontró el archivo config.txt');
@@ -126,11 +128,15 @@ begin
     WMIService := Locator.ConnectServer('.', 'root\CIMV2');
 
     // Obtener información básica del disco
-    DiskItem := WMIService.ExecQuery('SELECT Model, Manufacturer, SerialNumber, Size, MediaType FROM Win32_DiskDrive');
+    DiskItem := WMIService.ExecQuery('SELECT Model, Manufacturer, SerialNumber, Size, MediaType, InterfaceType FROM Win32_DiskDrive');
     EnumDisk := IUnknown(DiskItem._NewEnum) as IEnumVARIANT;
 
     while EnumDisk.Next(1, DiskValue, Fetched) = 0 do
     begin
+      // Filtrar discos USB
+      if SameText(VarToStr(DiskValue.MediaType), 'Removable Media') then
+        Continue;
+
       Inc(Index);
       SizeGB := StrToFloatDef(VarToStr(DiskValue.Size), 0) / (1024 * 1024 * 1024);
       MediaType := VarToStr(DiskValue.MediaType);
@@ -669,41 +675,6 @@ begin
   end;
 end;
 
-procedure GetComponentTemperatures;
-var
-  Locator, WMIService, HWItem: OLEVariant;
-  Enum: IEnumVARIANT;
-  Value: OLEVariant;
-  Fetched: LongWord;
-  Index: Integer;
-  TemperatureC: Double;
-begin
-  Index := 0;
-  try
-    Locator := CreateOleObject('WbemScripting.SWbemLocator');
-    WMIService := Locator.ConnectServer('.', 'root\\WMI');
-    HWItem := WMIService.ExecQuery('SELECT CurrentTemperature, InstanceName FROM MSAcpi_ThermalZoneTemperature');
-    Enum := IUnknown(HWItem._NewEnum) as IEnumVARIANT;
-
-    while Enum.Next(1, Value, Fetched) = 0 do
-    begin
-      Inc(Index);
-
-      // Convertir la temperatura de Kelvin a Celsius
-      TemperatureC := (Value.CurrentTemperature - 2732) / 10.0;
-
-      Log('Temperature' + IntToStr(Index), 'Zone', VarToStr(Value.InstanceName));
-      Log('Temperature' + IntToStr(Index), 'TemperatureC', FormatFloat('0.0', TemperatureC));
-    end;
-
-    if Index = 0 then
-      Log('Temperatures', 'Status', 'No temperature sensors found');
-  except
-    on E: Exception do
-      Log('Temperatures', 'Error', 'Error al obtener información de temperaturas: ' + E.Message);
-  end;
-end;
-
 procedure GetMotherboardDetails;
 var
   Locator, WMIService, HWItem: OLEVariant;
@@ -824,6 +795,25 @@ begin
   end;
 end;
 
+function ShouldExecuteProcedure(const Section, Key: string): Boolean;
+var
+  ConfigFile: TIniFile;
+  Value: string;
+begin
+  Result := False;
+
+  if FileExists(ExtractFilePath(ParamStr(0)) + 'config.ini') then
+  begin
+    ConfigFile := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'config.ini');
+    try
+      Value := ConfigFile.ReadString(Section, Key, 'NO');
+      Result := SameText(Value, 'SI');
+    finally
+      ConfigFile.Free;
+    end;
+  end;
+end;
+
 begin
   try
     CoInitialize(nil); // Inicializar COM
@@ -831,29 +821,48 @@ begin
       InitializeConfig;
       WriteLn('Iniciando TIC360 PCInventario... Por favor espere');
 
-      GetComputerName;
-      GetCurrentDateTime;
-      GetMotherboardDetails;
-      GetBIOSInfo;
-      GetDiskDriveInfo;
-      GetMemoryInfo;
-      GetMemoryUsage;
-      GetCPUInfo;
-      GetCPUUsage;
-      GetNetworkAdapters;
-      GetNetworkConfiguration;
-      GetDisplayAdapters;
-      GetInstalledCameras;
-      GetAudioDevices;
-      //GetComponentTemperatures;
-      GetOSInfo;
-      GetWindowsUpdatePolicies;
-      //GetInstalledSoftware;
-      //GetLocalUsersAndGroups;
-      GetWindowsLicenseInfo;
-      GetSecurityStatus;
+      if ShouldExecuteProcedure('Procedures', 'GetComputerName') then
+        GetComputerName;
+      if ShouldExecuteProcedure('Procedures', 'GetCurrentDateTime') then
+        GetCurrentDateTime;
+      if ShouldExecuteProcedure('Procedures', 'GetMotherboardDetails') then
+        GetMotherboardDetails;
+      if ShouldExecuteProcedure('Procedures', 'GetBIOSInfo') then
+        GetBIOSInfo;
+      if ShouldExecuteProcedure('Procedures', 'GetDiskDriveInfo') then
+        GetDiskDriveInfo;
+      if ShouldExecuteProcedure('Procedures', 'GetMemoryInfo') then
+        GetMemoryInfo;
+      if ShouldExecuteProcedure('Procedures', 'GetMemoryUsage') then
+        GetMemoryUsage;
+      if ShouldExecuteProcedure('Procedures', 'GetCPUInfo') then
+        GetCPUInfo;
+      if ShouldExecuteProcedure('Procedures', 'GetCPUUsage') then
+        GetCPUUsage;
+      if ShouldExecuteProcedure('Procedures', 'GetNetworkAdapters') then
+        GetNetworkAdapters;
+      if ShouldExecuteProcedure('Procedures', 'GetNetworkConfiguration') then
+        GetNetworkConfiguration;
+      if ShouldExecuteProcedure('Procedures', 'GetDisplayAdapters') then
+        GetDisplayAdapters;
+      if ShouldExecuteProcedure('Procedures', 'GetInstalledCameras') then
+        GetInstalledCameras;
+      if ShouldExecuteProcedure('Procedures', 'GetAudioDevices') then
+        GetAudioDevices;
+      if ShouldExecuteProcedure('Procedures', 'GetOSInfo') then
+        GetOSInfo;
+      if ShouldExecuteProcedure('Procedures', 'GetWindowsUpdatePolicies') then
+        GetWindowsUpdatePolicies;
+      if ShouldExecuteProcedure('Procedures', 'GetInstalledSoftware') then
+        GetInstalledSoftware;
+      if ShouldExecuteProcedure('Procedures', 'GetLocalUsersAndGroups') then
+        GetLocalUsersAndGroups;
+      if ShouldExecuteProcedure('Procedures', 'GetWindowsLicenseInfo') then
+        GetWindowsLicenseInfo;
+      if ShouldExecuteProcedure('Procedures', 'GetSecurityStatus') then
+        GetSecurityStatus;
 
-      Log('General', 'Status', 'Proceso completado');
+      WriteLn('Proceso completado');
     finally
       CoUninitialize; // Finalizar COM
       OutputFile.Free;
