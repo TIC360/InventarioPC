@@ -10,6 +10,7 @@ de la computadora y le agregará la extensión 'txt'.
 Ejemplo del contenido del archivo config.txt
 
 [Settings]
+
 Area=CASA
 
 También hay un archivo llamado config.ini, en este archivo se define el tipo de
