@@ -18,45 +18,61 @@ información que se desea recolectar, se activa con SI y se ignora con NO.
 
 ## [Procedures]
 ### GetComputerName=SI
-Nombre de la computadora
+Nombre de la computadora.
 
 ### GetCurrentDateTime=SI
-Fecha y hora
+Fecha y hora.
 
-GetMotherboardDetails=SI
+### GetMotherboardDetails=SI
+Fabricante, modelo, número de serie, versión.
 
-GetBIOSInfo=SI
+### GetBIOSInfo=SI
+Fabricante, versión, número de serie.
 
-GetDiskDriveInfo=SI
+### GetDiskDriveInfo=SI
+Fabricante, número de serie, modelo, tamaño en GB, tipo de medio (físico o virtual), espacio libre en GB, porcentaje usado.
 
-GetMemoryInfo=SI
+### GetMemoryInfo=SI
+Fabricante, número de parte, número de serie, capacidad en GB
 
-GetMemoryUsage=SI
+### GetMemoryUsage=SI
+Memoria total, memoria libre, memoria usada, porcentaje de memoria usada
 
-GetCPUInfo=SI
+### GetCPUInfo=SI
+Nombre, fabricante, Id del procesador, velocidad máxima, núcleos, hilos
 
-GetCPUUsage=SI
+### GetCPUUsage=SI
+Porcentaje de uso
 
-GetNetworkAdapters=SI
+### GetNetworkAdapters=SI
+Nombre, dirección MAC, fabricante, estado
 
-GetNetworkConfiguration=SI
+### GetNetworkConfiguration=SI
+Descripción, dirección MAC, dirección IP, puerta de enlace, servidor DNS, DHCP habilitado
 
-GetDisplayAdapters=SI
+### GetDisplayAdapters=SI
+Nombre, cantidad de memoria RAM, versión del driver.
 
-GetInstalledCameras=SI
+### GetInstalledCameras=SI
+Nombre, estatus, ID del dispositivo
 
-GetAudioDevices=SI
+### GetAudioDevices=SI
+Nombre, estatus, ID del dispositivo
 
-GetComponentTemperatures=SI
+### GetOSInfo=SI
+Descripcion, versión, número de compilación, arquitectura
 
-GetOSInfo=SI
+### GetWindowsUpdatePolicies=SI
+Clave de actualización, fecha de actualización
 
-GetWindowsUpdatePolicies=SI
+### GetInstalledSoftware=SI
+Nombre, versión
 
-GetInstalledSoftware=SI
+### GetLocalUsersAndGroups=SI
+Nombre, estado, desactivado (si o no)
 
-GetLocalUsersAndGroups=SI
+### GetWindowsLicenseInfo=SI
+Nombre, subtítulo
 
-GetWindowsLicenseInfo=SI
-
-GetSecurityStatus=SI
+### GetSecurityStatus=SI
+Nombre del antivirus, estado del firewall
