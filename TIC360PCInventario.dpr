@@ -1,19 +1,8 @@
 program TIC360PCInventario;
 {
   PCInventario es un software elaborado por Eduardo Rizo
-  Puede usarse libremente bajo los tÈrminos y condiciones
-  de la licencia GPL versiÛn 3.
-
-  Modo de uso: Editar el archivo config.txt y cambia el valor de Area
-  de acuerdo a tus necesidades. Al ejecutar el programa se crear· una carpeta
-  que se llamar· igual que el valor de Area y pondr· dentro un archivo con
-  la informaciÛn recolectada. El nombre del archivo ser· igual al nombre
-  de la computadora y le agregar· la extensiÛn 'txt'.
-
-  Ejemplo del contenido del archivo config.txt
-
-  [Settings]
-  Area=CASA
+  Puede usarse libremente bajo los t√©rminos y condiciones
+  de la licencia GPL versi√≥n 3.
 }
 {$APPTYPE CONSOLE}
 
@@ -45,7 +34,7 @@ begin
   // Leer el archivo config.txt
   if not FileExists(ExtractFilePath(ParamStr(0)) + 'config.txt') then
   begin
-    WriteLn('Error: No se encontrÛ el archivo config.txt');
+    WriteLn('Error: No se encontr√≥ el archivo config.txt');
     Halt(1);
   end;
 
@@ -54,7 +43,7 @@ begin
     Area := Ini.ReadString('Settings', 'Area', '');
     if Area = '' then
     begin
-      WriteLn('Error: La variable AREA no est· definida en config.txt');
+      WriteLn('Error: La variable AREA no est√° definida en config.txt');
       Halt(1);
     end;
 
@@ -127,7 +116,7 @@ begin
     Locator := CreateOleObject('WbemScripting.SWbemLocator');
     WMIService := Locator.ConnectServer('.', 'root\CIMV2');
 
-    // Obtener informaciÛn b·sica del disco
+    // Obtener informaci√≥n b√°sica del disco
     DiskItem := WMIService.ExecQuery('SELECT Model, Manufacturer, SerialNumber, Size, MediaType, InterfaceType FROM Win32_DiskDrive');
     EnumDisk := IUnknown(DiskItem._NewEnum) as IEnumVARIANT;
 
@@ -146,7 +135,7 @@ begin
       Log('Disk' + IntToStr(Index), 'Serial', VarToStr(DiskValue.SerialNumber));
       Log('Disk' + IntToStr(Index), 'SizeGB', FormatFloat('0.00', SizeGB));
 
-      // Verificar si el disco es fÌsico o virtual
+      // Verificar si el disco es f√≠sico o virtual
       if MediaType = '' then
         MediaType := 'Unknown'
       else if Pos('Virtual', MediaType) > 0 then
@@ -179,7 +168,7 @@ begin
       Log('Disks', 'Status', 'No disks found');
   except
     on E: Exception do
-      Log('Disks', 'Error', 'Error al obtener informaciÛn de discos: ' + E.Message);
+      Log('Disks', 'Error', 'Error al obtener informaci√≥n de discos: ' + E.Message);
   end;
 end;
 
@@ -209,7 +198,7 @@ begin
     end;
   except
     on E: Exception do
-      Log('Memory', 'Error', 'Error al obtener informaciÛn de memoria RAM: ' + E.Message);
+      Log('Memory', 'Error', 'Error al obtener informaci√≥n de memoria RAM: ' + E.Message);
   end;
 end;
 
@@ -240,7 +229,7 @@ begin
     end;
   except
     on E: Exception do
-      Log('CPU', 'Error', 'Error al obtener informaciÛn del procesador: ' + E.Message);
+      Log('CPU', 'Error', 'Error al obtener informaci√≥n del procesador: ' + E.Message);
   end;
 end;
 
@@ -274,7 +263,7 @@ begin
     end;
   except
     on E: Exception do
-      Log('NetworkAdapters', 'Error', 'Error al obtener informaciÛn de las tarjetas de red: ' + E.Message);
+      Log('NetworkAdapters', 'Error', 'Error al obtener informaci√≥n de las tarjetas de red: ' + E.Message);
   end;
 end;
 
@@ -302,7 +291,7 @@ begin
     end;
   except
     on E: Exception do
-      Log('DisplayAdapters', 'Error', 'Error al obtener informaciÛn de los adaptadores de pantalla: ' + E.Message);
+      Log('DisplayAdapters', 'Error', 'Error al obtener informaci√≥n de los adaptadores de pantalla: ' + E.Message);
   end;
 end;
 
@@ -330,7 +319,7 @@ begin
     end;
   except
     on E: Exception do
-      Log('Cameras', 'Error', 'Error al obtener informaciÛn de las c·maras: ' + E.Message);
+      Log('Cameras', 'Error', 'Error al obtener informaci√≥n de las c√°maras: ' + E.Message);
   end;
 end;
 
@@ -358,7 +347,7 @@ begin
     end;
   except
     on E: Exception do
-      Log('AudioDevices', 'Error', 'Error al obtener informaciÛn de los dispositivos de audio: ' + E.Message);
+      Log('AudioDevices', 'Error', 'Error al obtener informaci√≥n de los dispositivos de audio: ' + E.Message);
   end;
 end;
 
@@ -384,7 +373,7 @@ begin
     end;
   except
     on E: Exception do
-      Log('OperatingSystem', 'Error', 'Error al obtener informaciÛn del sistema operativo: ' + E.Message);
+      Log('OperatingSystem', 'Error', 'Error al obtener informaci√≥n del sistema operativo: ' + E.Message);
   end;
 end;
 
@@ -411,7 +400,7 @@ begin
     end;
   except
     on E: Exception do
-      Log('InstalledSoftware', 'Error', 'Error al obtener informaciÛn del software instalado: ' + E.Message);
+      Log('InstalledSoftware', 'Error', 'Error al obtener informaci√≥n del software instalado: ' + E.Message);
   end;
 end;
 
@@ -461,14 +450,14 @@ begin
         Log('WindowsLicense', 'Status', 'Unknown');
       end;
 
-      // Registrar tambiÈn la descripciÛn del producto (opcional)
+      // Registrar tambi√©n la descripci√≥n del producto (opcional)
       Log('WindowsLicense', 'Description', VarToStr(Value.Description));
     end
     else
       Log('WindowsLicense', 'Status', 'No license information found');
   except
     on E: Exception do
-      Log('WindowsLicense', 'Error', 'Error al obtener informaciÛn de la licencia de Windows: ' + E.Message);
+      Log('WindowsLicense', 'Error', 'Error al obtener informaci√≥n de la licencia de Windows: ' + E.Message);
   end;
 end;
 
@@ -543,10 +532,10 @@ begin
       Log('BIOS', 'SerialNumber', VarToStr(Value.SerialNumber));
     end
     else
-      Log('BIOS', 'Error', 'No se pudo obtener informaciÛn del BIOS');
+      Log('BIOS', 'Error', 'No se pudo obtener informaci√≥n del BIOS');
   except
     on E: Exception do
-      Log('BIOS', 'Error', 'Error al obtener informaciÛn del BIOS: ' + E.Message);
+      Log('BIOS', 'Error', 'Error al obtener informaci√≥n del BIOS: ' + E.Message);
   end;
 end;
 
@@ -576,7 +565,7 @@ begin
       Log('WindowsUpdates', 'Status', 'No updates found');
   except
     on E: Exception do
-      Log('WindowsUpdates', 'Error', 'Error al obtener informaciÛn de actualizaciones: ' + E.Message);
+      Log('WindowsUpdates', 'Error', 'Error al obtener informaci√≥n de actualizaciones: ' + E.Message);
   end;
 end;
 
@@ -615,7 +604,7 @@ begin
       Log('NetworkConfig', 'Status', 'No active network adapters found');
   except
     on E: Exception do
-      Log('NetworkConfig', 'Error', 'Error al obtener informaciÛn de red: ' + E.Message);
+      Log('NetworkConfig', 'Error', 'Error al obtener informaci√≥n de red: ' + E.Message);
   end;
 end;
 
@@ -635,7 +624,7 @@ begin
     Locator := CreateOleObject('WbemScripting.SWbemLocator');
     WMIService := Locator.ConnectServer('.', 'root\CIMV2');
 
-    // Obtener informaciÛn de usuarios locales
+    // Obtener informaci√≥n de usuarios locales
     Users := WMIService.ExecQuery('SELECT Name, Status, Disabled FROM Win32_UserAccount WHERE LocalAccount = TRUE');
     EnumUsers := IUnknown(Users._NewEnum) as IEnumVARIANT;
 
@@ -653,7 +642,7 @@ begin
     if UserIndex = 0 then
       Log('LocalUsers', 'Status', 'No local users found');
 
-    // Obtener informaciÛn de grupos locales
+    // Obtener informaci√≥n de grupos locales
     Groups := WMIService.ExecQuery('SELECT Name, Caption FROM Win32_Group WHERE LocalAccount = TRUE');
     EnumGroups := IUnknown(Groups._NewEnum) as IEnumVARIANT;
 
@@ -669,8 +658,8 @@ begin
   except
     on E: Exception do
     begin
-      Log('LocalUsers', 'Error', 'Error al obtener informaciÛn de usuarios: ' + E.Message);
-      Log('LocalGroups', 'Error', 'Error al obtener informaciÛn de grupos: ' + E.Message);
+      Log('LocalUsers', 'Error', 'Error al obtener informaci√≥n de usuarios: ' + E.Message);
+      Log('LocalGroups', 'Error', 'Error al obtener informaci√≥n de grupos: ' + E.Message);
     end;
   end;
 end;
@@ -699,7 +688,7 @@ begin
       Log('Motherboard', 'Status', 'No motherboard information found');
   except
     on E: Exception do
-      Log('Motherboard', 'Error', 'Error al obtener informaciÛn de la tarjeta madre: ' + E.Message);
+      Log('Motherboard', 'Error', 'Error al obtener informaci√≥n de la tarjeta madre: ' + E.Message);
   end;
 end;
 
@@ -739,7 +728,7 @@ begin
       Log('MemoryUsage', 'Status', 'No memory information found');
   except
     on E: Exception do
-      Log('MemoryUsage', 'Error', 'Error al obtener informaciÛn de memoria: ' + E.Message);
+      Log('MemoryUsage', 'Error', 'Error al obtener informaci√≥n de memoria: ' + E.Message);
   end;
 end;
 
@@ -772,7 +761,7 @@ begin
       Log('CPUUsage', 'Status', 'No CPU usage information found');
   except
     on E: Exception do
-      Log('CPUUsage', 'Error', 'Error al obtener informaciÛn de uso del CPU: ' + E.Message);
+      Log('CPUUsage', 'Error', 'Error al obtener informaci√≥n de uso del CPU: ' + E.Message);
   end;
 end;
 
